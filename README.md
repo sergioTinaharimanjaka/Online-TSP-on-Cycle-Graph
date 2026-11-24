@@ -147,3 +147,4 @@ def pdir(a, b, d, alpha=0.5):
         return 1.0
     return alpha * a / (b - d - a)
 ```
+The function $comRatioExp$ is simplified when using this $(r, l, clockwise):prob$ which is really practical to avoid each $\%$ operation with $ag pos$ and $back pos$. To avoid ambiguity, user can use the list graph $Graph$ with the same description from above but the index and structure is different. This is why this $adaptingIndex$ function is defined. With this adaptation, given an index $i$, $Graph[i]$ refers to the edge which is the clockwise direction of the vertex $i$. Apart from that they have the same properties.
