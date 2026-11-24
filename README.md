@@ -101,7 +101,7 @@ def find_opt(G):#G is a numpy array
   return min(2 * (summation - heaviest), summation)
   ```
 
-
+$Randheavytets05(G, source)$ repeats the step $n - 2$ times where $n$ is the number of edges. $n-2$ because the algorithm choose with probability $1$ the cheapest between the $2$ proposed edges in the begining and when the last edge is discovered at the end of the algorithm, the agent goes back by choosing the cheapest branch.  But there is some required initialization to be consistent with the index and direction.
 
 ```python
 def Randheavytest05(G, source):
@@ -130,5 +130,3 @@ def Randheavytest05(G, source):
   return C / OPT
 ```
 
-
-$Randheavytets05(G, source)$ repeats the step $n - 2$ times where $n$ is the number of edges. $n-2$ because the algorithm choose with probability $1$ the cheapest between the $2$ proposed edges in the begining and when the last edge is discovered at the end of the algorithm, the agent goes back by choosing the cheapest branch.  But there is some required initialization to be consistent with the index and direction.
