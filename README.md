@@ -17,13 +17,14 @@ So, at this time $t$ if the probability is not $1$, two terms with probability $
 
 This competitive ratio can be reduced to $1.307$ if we consider other edge in different position apart from $b_t$. They are the heaviest edge $b'$(which is the heavy edge if the cycle contains one) and $b''$ which is the second heaviest after the heaviest one. There is another proof for that one with the notion of $T_{stop}$ which will be published in another paper. For now, we just nedd the simulation.
 
-The function $prob\_one\_step(G, N, a, b, d, ag\_pos, back\_pos, clockwise, C, rng)$ update the branches $a$, $d$, the boundary edge $b$, the cost $C$paid by the agent after one step. The cycle graph is stored in a list $Graph$. $clockwise$ informs the direction of the last move. $False$ if it was in the left and $True$ otherwise. 
+The function $probOneStep$ update the branches $a$, $d$, the boundary edge $b$, the cost $C$paid by the agent after one step. The cycle graph is stored in a list $Graph$. $clockwise$ informs the direction of the last move. $False$ if it was in the left and $True$ otherwise. 
 
 $Graph[i]$ refers to the edge before the vertex $i$ in the counter clockwise direction if the boolean clockwise is $False$.
 It is the edge before the vertex $i$ in the clockwise direction if clockwise is $True$.
+
 $ag\_pos$ is the index of Graph such that $Graph[ag\_pos] = b.$Similar to $b$, $back\_pos$ is the index of Graph such that $Graph[back\_pos]$ is the unvisited vertex of the branch $d$. Initially $ag\_pos = back\_pos = s.$
 
-$prob\_one\_step$ is just computing the new cost after one step according to the random value compared with the $p\_dir$ at this step, not the expectation.
+$probOneStep$ is just computing the new cost after one step according to the random value compared with the $pdir$ at this step, not the expectation.
 
 
 ```python
