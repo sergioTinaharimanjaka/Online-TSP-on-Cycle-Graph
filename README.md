@@ -30,7 +30,59 @@ $probOneStep$ is just computing the new cost after one step according to the ran
 ```python
 import numpy as np
 ```
-
+```python
+def probOneStep(G, N, a, b, d, ag_pos, back_pos, clockwise, C, rng):
+  if b <= 1.5 * a + d:#Move direct
+    C += b
+    p = 1
+    if clockwise == False:
+      a = a + G[ag_pos]
+      b = G[(ag_pos - 1) % N]
+      ag_pos = (ag_pos - 1) % N
+    else:#clockwise = True
+      a = a + G[(ag_pos + 1) % N]
+      b = G[(ag_pos + 2) % N]
+      ag_pos = (ag_pos + 1) % N
+  else:#Backtracking with probability 1 - p
+    p = a / (2 * (b - a - d))
+    if clockwise == False:
+      #C += p * b + (1 - p) * (a + d)
+      if rng.uniform(low=0, high=1) <= 1 - p:
+        C += a + d
+        temp = back_pos
+        back_pos = ag_pos
+        temp_d = d
+        d = a + b
+        a = temp_d#We are adding the last unvisited edge of the previous d.
+        ag_pos = (temp + 1) % N
+        b = G[(ag_pos + 1) % N]
+        clockwise = True
+      else:#go direct
+        #print("Go direct")
+        C += b
+        a = a + G[ag_pos]
+        b = G[(ag_pos - 1) % N]
+        ag_pos = (ag_pos - 1) % N
+    else:#clockwise is True
+      if rng.uniform(low=0, high=1) <= 1 - p:
+        C += a + d
+        temp = back_pos
+        back_pos = ag_pos
+        temp_d = d
+        d = a + b
+        a = temp_d
+        ag_pos = (temp - 1) % N
+        b = G[ag_pos]
+        clockwise = False
+      else:#go direct
+        #print("Go direct")
+        C += b
+        a = a + G[(ag_pos + 1) % N]
+        b = G[(ag_pos + 2) % N]
+        ag_pos = (ag_pos + 1) % N
+  #print("p = ", p, "a = ", a, " b = ", b, " d = ", d, " ag_pos = ", ag_pos, " back_pos = ", back_pos, " clockwise = ", clockwise, "Cost = ", C)
+  return G, a, b, d, ag_pos, back_pos, clockwise, C
+```
 
 
 
