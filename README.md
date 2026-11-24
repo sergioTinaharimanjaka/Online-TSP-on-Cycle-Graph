@@ -129,4 +129,4 @@ def Randheavytest05(G, source):
   OPT = findOpt(G)
   return C / OPT
 ```
-
+For example, given the graph $Graph = [1, 2, 8, 35, 71, 18, 4]$ and the source is $0$. Running this code many times will give different comptetitive ratio since it is randomized. And it can exceed $1.314$ since the algorithm is not using the expectation. The competitive ratio found by this algorithm is the one of the real value found by the agent when exploring randomly. Then we still need another function verifying our analysis. And this function is deterministic since it computes the expectation.
