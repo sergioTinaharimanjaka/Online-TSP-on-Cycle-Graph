@@ -148,3 +148,16 @@ def pdir(a, b, d, alpha=0.5):
     return alpha * a / (b - d - a)
 ```
 The function $comRatioExp$ is simplified when using this $(r, l, clockwise):prob$ which is really practical to avoid each $\%$ operation with $ag pos$ and $back pos$. To avoid ambiguity, user can use the list graph $Graph$ with the same description from above but the index and structure is different. This is why this $adaptingIndex$ function is defined. With this adaptation, given an index $i$, $Graph[i]$ refers to the edge which is the clockwise direction of the vertex $i$. Apart from that they have the same properties.
+
+```python
+def adaptingIndex(G):
+  L = G[1:]
+  L.append(G[0])
+  return L
+````
+The key point here is the dictionnary $next states$. It contains the states written like $(r, l, clockwise):prob$. If $clockwise = False$, it is in the counter clockwise direction. $r$ refers to the index of the vertex in the right such that $Graph[r]$ is not visited yet. $l$ to the cumulative edge in the branch $a$ which is obatined without computation with $pref ccw[l]$. And $prob$ as the probability $pdir$ at this specific time using the definition.
+
+
+Ssymmetrically, when $clockwise = True$, it is in the clockwise direction. $l$ refers to the index of the vertex in the left such that $Graph[l]$ is not visited yet. And $r$ to te cumulatice esdge in the branch $a$ given by $pref cw[r]$.
+
+$comRatioExp$ is computing the competitive ratio eith the expection definition. 
