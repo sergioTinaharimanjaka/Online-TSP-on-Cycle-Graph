@@ -161,3 +161,73 @@ The key point here is the dictionnary $next states$. It contains the states writ
 Ssymmetrically, when $clockwise = True$, it is in the clockwise direction. $l$ refers to the index of the vertex in the left such that $Graph[l]$ is not visited yet. And $r$ to te cumulatice esdge in the branch $a$ given by $pref cw[r]$.
 
 $comRatioExp$ is computing the competitive ratio eith the expection definition. 
+
+
+```python
+def comRatioExp(G, source=0, alpha=0.5):
+    N = len(G)  
+    G = adaptingIndex(G)
+    print(source)
+    if N <= 1:
+        return 0.0
+    if not (0 <= source < N):
+        raise ValueError("start must satisfy 0 <= start < len(G)")
+
+    w = G[source:] + G[:source]
+    total = sum(w)
+    pref_cw = [0.0] * (N + 1)
+    pref_ccw = [0.0] * (N + 1)
+    for i in range(N):
+        pref_cw[i + 1] = pref_cw[i] + w[i]
+        pref_ccw[i + 1] = pref_ccw[i] + w[N - 1 - i]
+
+    if w[0] <= w[N - 1]:
+        exp_cost = w[0]
+        states = {(1, 0, True): 1.0}
+    else:
+        exp_cost = w[N - 1]
+        states = {(0, 1, False): 1.0}
+    #print(states)
+
+    for _ in range(N - 2):
+        #print("_ = ", _)
+        next_states = defaultdict(float)
+        for (r, l, clockwise), prob in states.items():
+            #print("side = ", side)
+            if clockwise == True:
+                a = pref_cw[r]
+                b = w[r]
+                d = pref_ccw[l] + w[N - 1 - l]
+                direct_state = (r + 1, l, True)
+                back_state = (r, l + 1, False)
+                #print("direct_state = ", direct_state)
+                #print("back_state = ", back_state)
+            else:
+                a = pref_ccw[l]
+                b = w[N - 1 - l]
+                d = pref_cw[r] + w[r]
+                direct_state = (r, l + 1, False)
+                back_state = (r + 1, l, True)
+                #print("direct_state = ", direct_state)
+                #print("back_state = ", back_state)
+
+            p = pdir(a, b, d, alpha)
+            exp_cost += prob * (p * b + (1.0 - p) * (a + d))
+            #print(p)
+            if p > 0.0:
+                next_states[direct_state] += prob * p
+                #print(next_states[direct_state])
+            if p < 1.0:
+                next_states[back_state] += prob * (1.0 - p)
+                #print(next_states[back_state])
+        states = next_states
+        #print("states = ", states)
+
+    for (r, l, clockwise), prob in states.items():
+        dist = pref_cw[r] if clockwise == True else pref_ccw[l]
+        exp_cost += prob * min(dist, total - dist)
+
+    OPT = findOpt(np.array(w))
+    ratio = exp_cost / OPT
+    return ratio
+```
