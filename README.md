@@ -103,4 +103,32 @@ def find_opt(G):#G is a numpy array
 
 
 
+```python
+def Randheavytest05(G, source):
+  N  = len(G)
+  G = np.array(G)
+  s = 0 #must be < N
+  clockwise = False
+  #Assume that when moving to the left branch, index decreases, and increases in the opposite direction.
+  #First move should be to the left for reference. The array Graph is adapted to that.
+  if G[source] > G[source + 1]:
+    L = list(G)
+    L.reverse()
+    G = np.array(L)
+    source = N - 1 - source
+    clockwise = False
+
+  a, b, d = G[source % N], G[(source - 1) % N], G[(source + 1) % N]#It is correct since clockwise = False
+  ag_pos, back_pos = (source - 1) % N, source#definition of ag_pos and back_pos are inside the function prob_one_step
+  C = a # Cost paid by the algorithm
+  rng = np.random.default_rng()
+  for i in range(N - 2):
+    G, a, b, d, ag_pos, back_pos, clockwise, C = probOneStep(G, N, a, b, d, ag_pos, back_pos, clockwise, C, rng)
+  det = min(a, b + d)
+  C += det
+  OPT = findOpt(G)
+  return C / OPT
+```
+
+
 $Randheavytets05(G, source)$ repeats the step $n - 2$ times where $n$ is the number of edges. $n-2$ because the algorithm choose with probability $1$ the cheapest between the $2$ proposed edges in the begining and when the last edge is discovered at the end of the algorithm, the agent goes back by choosing the cheapest branch.  But there is some required initialization to be consistent with the index and direction.
