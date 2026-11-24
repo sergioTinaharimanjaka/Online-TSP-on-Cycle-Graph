@@ -12,7 +12,7 @@ p_{dir} = \begin{cases}
 1 & \text{if } b_t \le 1.5a_t + d_t \\ 
 \frac{a_t}{2(b_t - a_t - d_t)} & \text{otherwise}
 \end{cases}
-$$}
+$$
 
 So, at this time $t$ if the probability is not $1$, two terms with probability $p_t$ and $1 - p_t$ appear to compute the expectation. And for a given graph with $n$ vertices, the algorithm can find $O(n^2)$ possible probabilities. It is quite hard to prove the bound of the competitive ratio using this $O(n^2)$ probabilities then the paper proposed the poetential function $\Phi$ which is a supermatingale. They proved that the bound for any configuration of $G$ will give a competitive ratio less than $\frac{(3 - \sqrt{2})^2}{8}$ by analyzing different value of $b_t$. 
 
