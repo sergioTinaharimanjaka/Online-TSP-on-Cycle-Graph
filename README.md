@@ -5,9 +5,9 @@ The agent does not know the graph in advance. They just discover two possibe edg
 
 The competitive ratio measure the efficiency of the algorithm. It is the cost found by the online algorithm divided by the cost of the offline algorithm noted $OPT$. The cost of the online algorithm($RandHeavyTest_{0.5}$) is given by the expectation since it is random. And $OPT = min\left(\sum_{e\in E}w(e), 2\sum_{e\in A \setminus h}w(e)\right)$ where $h$ is a heavy edge. An edge $h$ is heavy if $\sum_{e\in A \setminus h}w(e) < w(h).$
 
-'''python
+```python
 def find_opt(G):#G is a numpy array
   summation = np.sum(G)
   heaviest = np.max(G)
   return min(2 * (summation - heaviest), summation)
-  '''
+  ```
