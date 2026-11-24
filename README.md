@@ -87,7 +87,7 @@ def probOneStep(G, N, a, b, d, ag_pos, back_pos, clockwise, C, rng):
 
 
 
-
+The function $findOpt$ compute $OPT$.
 
 
 
