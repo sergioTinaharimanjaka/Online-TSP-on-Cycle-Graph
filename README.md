@@ -5,6 +5,41 @@ The agent does not know the graph in advance. They just discover two possibe edg
 
 The competitive ratio measure the efficiency of the algorithm. It is the cost found by the online algorithm divided by the cost of the offline algorithm noted $OPT$. The cost of the online algorithm($RandHeavyTest_{0.5}$) is given by the expectation since it is random. And $OPT = min\left(\sum_{e\in E}w(e), 2\sum_{e\in A \setminus h}w(e)\right)$ where $h$ is a heavy edge. An edge $h$ is heavy if $\sum_{e\in A \setminus h}w(e) < w(h).$
 
+Let'say that we have the following flow at some step $t$ of the the algorithm. $s → a_t→ b_t→d_t→s.$ For this explanation, assume that $a_t$ is the path discovered by agent in the left(clockwise direction) at time $t$, $d_t$ in the counter clockwise direction (the boundary edge of $d_t$ is not visited yet) and $b_t$ the boundary edge at the branch $a_t$. It can be the opposite direction but the same principle.
+
+At this time $t$, the agent chooses randomly between $b_t$ and the boundary edge on $d_t$ with a probability $p_{dir} = \begin{cases} 
+1 & \text{if } b_t \le 1.5a_t + d_t \\ 
+\frac{a_t}{2(b_t - a_t -d_t)} & \text{otherwise }
+\end{cases}$
+
+So, at this time $t$ if the probability is not $1$, two terms with probability $p_t$ and $1 - p_t$ appear to compute the expectation. And for a given graph with $n$ vertices, the algorithm can find $O(n^2)$ possible probabilities. It is quite hard to prove the bound of the competitive ratio using this $O(n^2)$ probabilities then the paper proposed the poetential function $\Phi$ which is a supermatingale. They proved that the bound for any configuration of $G$ will give a competitive ratio less than $\frac{(3 - \sqrt{2})^2}{8}$ by analyzing different value of $b_t$. 
+
+This competitive ratio can be reduced to $1.307$ if we consider other edge in different position apart from $b_t$. They are the heaviest edge $b'$(which is the heavy edge if the cycle contains one) and $b''$ which is the second heaviest after the heaviest one. There is another proof for that one with the notion of $T_{stop}$ which will be published in another paper. For now, we just nedd the simulation.
+
+The function $prob\_one\_step(G, N, a, b, d, ag\_pos, back\_pos, clockwise, C, rng)$ update the branches $a$, $d$, the boundary edge $b$, the cost $C$paid by the agent after one step. The cycle graph is stored in a list $Graph$. $clockwise$ informs the direction of the last move. $False$ if it was in the left and $True$ otherwise. 
+
+$Graph[i]$ refers to the edge before the vertex $i$ in the counter clockwise direction if the boolean clockwise is $False$.
+It is the edge before the vertex $i$ in the clockwise direction if clockwise is $True$.
+$ag\_pos$ is the index of Graph such that $Graph[ag\_pos] = b.$Similar to $b$, $back\_pos$ is the index of Graph such that $Graph[back\_pos]$ is the unvisited vertex of the branch $d$. Initially $ag\_pos = back\_pos = s.$
+
+$prob\_one\_step$ is just computing the new cost after one step according to the random value compared with the $p\_dir$ at this step, not the expectation.
+
+
+```python
+import numpy as np
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ```python
 def find_opt(G):#G is a numpy array
   summation = np.sum(G)
