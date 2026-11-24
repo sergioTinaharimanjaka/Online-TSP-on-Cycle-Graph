@@ -231,3 +231,13 @@ def comRatioExp(G, source=0, alpha=0.5):
     ratio = exp_cost / OPT
     return ratio
 ```
+
+An example with the same graph is a good check.
+
+
+```python
+comRatioExp([1, 2, 8, 35, 71, 18, 4], 0)
+```
+
+
+What is interesting here is, even if we are not using the potential function $\Phi$ we cannot have a cost exceeding $1.307$ when running the function  $comRatioExp$. It can be checked by keeping to run $Randheavytest0\_5$ om the same graph and same source $k$ times, storing the $ratio$ on a list and computing its average. We are certain that this average cannot exceed the ratio faound by $comRatioExp$.
