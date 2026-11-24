@@ -22,7 +22,7 @@ The function $probOneStep$ update the branches $a$, $d$, the boundary edge $b$, 
 $Graph[i]$ refers to the edge before the vertex $i$ in the counter clockwise direction if the boolean clockwise is $False$.
 It is the edge before the vertex $i$ in the clockwise direction if clockwise is $True$.
 
-$ag pos$ is the index of Graph such that $Graph[ag pos] = b.$imilar to $b$, $back\_pos$ is the index of Graph such that $Graph[back\_pos]$ is the unvisited vertex of the branch $d$. Initially $ag\_pos = back\_pos = s.$
+$ag pos$ is the index of Graph such that $Graph[ag pos] = b.$Similar to $b$, $back\_pos$ is the index of Graph such that $Graph[back\_pos]$ is the unvisited vertex of the branch $d$. Initially $ag\_pos = back\_pos = s.$
 
 $probOneStep$ is just computing the new cost after one step according to the random value compared with the $pdir$ at this step, not the expectation.
 
