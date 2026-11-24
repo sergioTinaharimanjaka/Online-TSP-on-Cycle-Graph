@@ -138,3 +138,12 @@ Graph, source = [1, 2, 8, 35, 71, 18, 4], 0
 Randheavytest05(Graph, source)
 ```
 The function $comRatioExp(G, source)$ is implementing the computation of a competitive ratio using the expectation. It is mentioned before that there can be $O(n^2)$ different probabilities for this task. This $O(n^2)$ is only possible if we use two lists of $n + 1$ elements called $pref cw$ and $pref ccw$.  They contain respectively the cumulative value of the cost paid by the agent from the source and making a cycle in clockwise and counterclockwise direction staring from $0$. 
+
+
+```python
+from collections import defaultdict
+def pdir(a, b, d, alpha=0.5):
+    if b <= (1.0 + alpha) * a + d:
+        return 1.0
+    return alpha * a / (b - d - a)
+```
