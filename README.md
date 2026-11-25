@@ -15,7 +15,7 @@ $\frac{a_t}{2(b_t - a_t -d_t)}$ otherwise.
 
 So, at this time $t$ if the probability is not $1$, two terms with probability $p_t$ and $1 - p_t$ appear to compute the expectation. And for a given graph with $n$ vertices, the algorithm can find $O(n^2)$ possible probabilities. It is quite hard to prove the bound of the competitive ratio using this $O(n^2)$ probabilities then the paper proposed the poetential function $\Phi$ which is a supermatingale. They proved that the bound for any configuration of $G$ will give a competitive ratio less than $\frac{(3 - \sqrt{2})^2}{8}$ by analyzing different value of $b_t$. 
 
-This competitive ratio can be reduced to $1.307$ if we consider other edge in different position apart from $b_t$. They are the heaviest edge $b'$(which is the heavy edge if the cycle contains one) and $b''$ which is the second heaviest after the heaviest one. There is another proof for that one with the notion of $T_{stop}$ which will be published in another paper. For now, we just nedd the simulation.
+This competitive ratio can be reduced to $1.307$ if we consider other edge in different position apart from $b_t$. They are the heaviest edge $b'$(which is the heavy edge if the cycle contains one) and $b''$ which is the second heaviest after the heaviest one. There is another proof for that one with the notion of $T_{stop}$ which will be published in another paper. For now, we just need the simulation.
 
 The function $probOneStep$ update the branches $a$, $d$, the boundary edge $b$, the cost $C$paid by the agent after one step. The cycle graph is stored in a list $Graph$. $clockwise$ informs the direction of the last move. $False$ if it was in the left and $True$ otherwise. 
 
