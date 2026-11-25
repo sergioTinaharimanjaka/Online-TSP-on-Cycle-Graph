@@ -3,7 +3,7 @@ This is an implementation of the Algorithm $RandHeavyTest_{0.5}$ on the paper [l
 
 The agent does not know the graph in advance. They just discover two possibe edges(to the left or to the right) on the cycle graph at each step. They have to choose one and cannot catch-up in the future when doing the wrong choice.
 
-The competitive ratio measure the efficiency of the algorithm. It is the cost found by the online algorithm divided by the cost of the offline algorithm noted $OPT$. The cost of the online algorithm($RandHeavyTest_{0.5}$) is given by the expectation since it is random. And $OPT = min\left(\sum_{e\in E}w(e), 2\sum_{e\in A \setminus h}w(e)\right)$ where $h$ is a heavy edge. An edge $h$ is heavy if $\sum_{e\in E \setminus h}w(e) < w(h).$
+The competitive ratio measure the efficiency of the algorithm. It is the cost found by the online algorithm divided by the cost of the offline algorithm noted $OPT$. The cost of the online algorithm($RandHeavyTest_{0.5}$) is given by the expectation since it is random. And $OPT = min\left(\sum_{e\in E}w(e), 2\sum_{e\in E \setminus h}w(e)\right)$ where $h$ is a heavy edge. An edge $h$ is heavy if $\sum_{e\in E \setminus h}w(e) < w(h).$
 
 Let'say that we have the following flow at some step $t$ of the the algorithm. $s → a_t→ b_t→d_t→s.$ For this explanation, assume that $a_t$ is the path discovered by agent in the left(clockwise direction) at time $t$, $d_t$ in the counter clockwise direction (the boundary edge of $d_t$ is not visited yet) and $b_t$ the boundary edge at the branch $a_t$. It can be the opposite direction but the same principle.
 
@@ -95,7 +95,7 @@ The function $findOpt$ compute $OPT$.
 
 
 ```python
-def find_opt(G):#G is a numpy array
+def findOpt(G):#G is a numpy array
   summation = np.sum(G)
   heaviest = np.max(G)
   return min(2 * (summation - heaviest), summation)
